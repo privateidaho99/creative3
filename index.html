@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <title>Financial Planner</title>
-    <head>
-        <link rel="stylesheet" href="style.css" type="text/css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
-        <script src="controll.js"></script>
-    </head>
-    
-    <body>
-        <h1>Personal Financial Planner</h1>
-        <div ng-app='app' ng-controller='mainCtrl'>
-        <form>
-            <input placeholder='Amount' ng-model='userForm.baseCurr'/>
-            <input placeholder='Item' ng-model='userForm.convCurr'/>
+<title>Financial Planner</title>
+
+<head>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="controll.js"></script>
+</head>
+
+<body>
+    <h1>Personal Financial Planner</h1>
+    <div ng-app='app' ng-controller='mainCtrl'>
+        <form name="userForm" ng-submit="addNew(userForm)">
+            <input placeholder='Amount' ng-model='userForm.value' />
+            <input placeholder='Item' ng-model='userForm.name' />
             <button type='submit'>Add New</button>
         </form>
-        <ul class='amount-list'>
-          <li ng-repeat='name in amount'>
-      </li>
-    </ul>
+        <ul>
+            <li ng-repeat='amount in amounts'>
+                <div>
+                    <h4>{{amount.name}} ${{amount.value}}</h4>
+                </div>
+            </li>
+        </ul>
     </div>
-    </body>
+</body>
+
 </html>
