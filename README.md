@@ -1,2 +1,1 @@
-# creative3
-CS260
+# todo-app

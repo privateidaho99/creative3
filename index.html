@@ -1,29 +1,103 @@
 <!DOCTYPE html>
-<html>
-<title>Financial Planner</title>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="style.css" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
-    <script src="controll.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Creative Project 1">
+  <meta name="author" content="FinPlan">
+
+  <title>FinPlan</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
+
+  <!-- Custom fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+  <script src="js/control.js"></script>
+
+  <!-- Custom styles -->
+  <link href="css/main.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <h1>Personal Financial Planner</h1>
-    <div ng-app='app' ng-controller='mainCtrl'>
-        <form name="userForm" ng-submit="addNew(userForm)">
-            <input placeholder='Amount' ng-model='userForm.value' />
-            <input placeholder='Item' ng-model='userForm.name' />
-            <button type='submit'>Add New</button>
-        </form>
-        <ul>
-            <li ng-repeat='amount in amounts'>
-                <div>
-                    <h4>{{amount.name}} ${{amount.value}}</h4>
-                </div>
-            </li>
-        </ul>
+  <div class="container mx-auto" ng-app='app' ng-controller='mainCtrl'>
+    <div class="row text-center mx-auto">
+      <div class="col-12 top-header">
+        <h1>Personal Financial Planner</h1>
+        <p>Created by Ben Demordaunt and Carson Campbell</p>
+      </div>
+      <form class="col-lg-8 mx-auto mx-auto text-center input-group" name="userForm" ng-submit="addNew(userForm)">
+        <input placeholder='Item' ng-model='userForm.name' required />
+        <input placeholder='Amount (0.00)' ng-model='userForm.value' data-error="Enter a dollar amount ($$.¢¢)" required/>
+        <select ng-model='userForm.type' required data-error="Select a category" tabindex="1">
+                <option value="" selected>Select a category</option>
+                <option ng-repeat="x in categories">{{x}}</option>
+            </select>
+        <span class="input-group-btn" name="itemTitle">
+              <button id="submit" class="btn btn-default" type="submit">Add Item</button>
+            </span>
+      </form>
     </div>
+
+    <div class="row">
+      <div class="col-lg-7 mx-auto category">
+        <div id="general"><img src="img/general-01.png" />General<span class="planned-span">PLANNED</span></div>
+        <div ng-repeat="amount in amounts | filter: {type: 'General'}">
+          {{amount.name}}<span>${{amount.value}}</span>
+        </div>
+      </div>
+      <div class="col-lg-7 mx-auto category">
+        <div id="food"><img src="img/food-01.png" />Food<span class="planned-span">PLANNED</span></div>
+        <div ng-repeat="amount in amounts | filter: {type: 'Food'}">
+          {{amount.name}}<span>${{amount.value}}</span>
+        </div>
+      </div>
+      <div class="col-lg-7 mx-auto category">
+        <div id="transportation"><img src="img/transportation-01.png" />Transportation<span class="planned-span">PLANNED</span></div>
+        <div ng-repeat="amount in amounts | filter: {type: 'Transportation'}">
+          {{amount.name}}<span>${{amount.value}}</span>
+        </div>
+      </div>
+      <div class="col-lg-7 mx-auto category">
+        <div id="housing"><img src="img/house-01.png" />Housing<span class="planned-span">PLANNED</span></div>
+        <div ng-repeat="amount in amounts | filter: {type: 'Housing'}">
+          {{amount.name}}<span>${{amount.value}}</span>
+        </div>
+      </div>
+      <div class="col-lg-7 mx-auto category">
+        <div id="investing"><img src="img/invest-01.png" />Investing<span class="planned-span">PLANNED</span></div>
+        <div ng-repeat="amount in amounts | filter: {type: 'Investing'}">
+          {{amount.name}}<span>${{amount.value}}</span>
+        </div>
+      </div>
+      <div class="col-lg-7 mx-auto category">
+        <div id="savings"><img src="img/save-01.png" />Savings<span class="planned-span">PLANNED</span></div>
+        <div ng-repeat="amount in amounts | filter: {type: 'Savings'}">
+          {{amount.name}}<span>${{amount.value}}</span>
+        </div>
+      </div>
+      <div class="col-lg-7 mx-auto category">
+        <div id="debt"><img src="img/card-01.png" />Debt<span class="planned-span">PLANNED</span></div>
+        <div ng-repeat="amount in amounts | filter: {type: 'Debt'}">
+          {{amount.name}}<span>${{amount.value}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript" src="js/main.js"></script>
 
 </html>
